@@ -36,17 +36,21 @@ echo "Preparing files for deployment."
 cp -a "htdocs" "deploy"
 cd "deploy"
 
+
+###
+# Always deploy the master branch
+###
 git checkout master
 
 ###
-# Create a temporary wpengine branch
+# Create a temporary deploying-wpengine branch
 ###
-exists=`git show-ref refs/heads/wpengine`
+exists=`git show-ref refs/heads/deploying-wpengine`
 if [ -n "$exists" ]
 then
-  git branch -D wpengine
+  git branch -D deploying-wpengine
 fi
-git checkout -b wpengine
+git checkout -b deploying-wpengine
 
 ###
 # Move files into the expected locations.
@@ -75,14 +79,14 @@ git commit -am "WP Engine build from: $(git log -1 HEAD --pretty=format:%s)$(git
 echo "Pushing to WP Engine..."
 if [ "$environment" == "staging" ]
 then
-  git push staging wpengine:master --force
+  git push staging deploying-wpengine:master --force
   git checkout develop
 elif [ "$environment" == "production" ]
 then
-  git push production wpengine:master --force
+  git push production deploying-wpengine:master --force
   git checkout master
 fi
-git branch -D wpengine
+git branch -D deploying-wpengine
 echo "Successfully deployed."
 
 ###
