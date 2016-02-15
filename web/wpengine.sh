@@ -8,7 +8,7 @@ theme="sage"
 ###
 if [ ! -d "web" ]
 then
-  echo "Please run this script from the main htdocs directory."
+  echo "Please run this script from the root directory."
   exit
 fi
 
@@ -93,7 +93,7 @@ echo "Successfully deployed."
 ###
 git checkout master
 echo "Cleaning up..."
-cd "../htdocs"
+cd "../"
 rm -Rf "../deploy"
 git fetch
 echo "Done."
