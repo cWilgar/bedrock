@@ -2,14 +2,14 @@
 
 if ( ! class_exists( 'Timber' ) ) {
 	add_action( 'admin_notices', function() {
-			echo '<div class="error"><p>Timber not activated. Make sure you activate the plugin in <a href="' . esc_url( admin_url( 'plugins.php#timber' ) ) . '">' . esc_url( admin_url( 'plugins.php' ) ) . '</a></p></div>';
+			echo '<div class="error"><p>Timber not activated. Make sure you activate the plugin. Speak to a member of the web team for help.</p></div>';
 		} );
 	return;
 }
 
 Timber::$dirname = array('templates', 'views');
 
-class StarterSite extends TimberSite {
+class ROLI_Web extends TimberSite {
 
 	function __construct() {
 		add_theme_support( 'post-formats' );
@@ -20,14 +20,6 @@ class StarterSite extends TimberSite {
 		add_action( 'init', array( $this, 'register_post_types' ) );
 		add_action( 'init', array( $this, 'register_taxonomies' ) );
 		parent::__construct();
-	}
-
-	function register_post_types() {
-		//this is where you can register custom post types
-	}
-
-	function register_taxonomies() {
-		//this is where you can register custom taxonomies
 	}
 
 	function add_to_context( $context ) {
@@ -48,9 +40,4 @@ class StarterSite extends TimberSite {
 
 }
 
-new StarterSite();
-
-function myfoo( $text ) {
-	$text .= ' bar!';
-	return $text;
-}
+new ROLI_Web();
