@@ -80,18 +80,18 @@ echo "Pushing to WP Engine..."
 if [ "$environment" == "staging" ]
 then
   git push staging deploying-wpengine:master --force
-  git checkout develop
 elif [ "$environment" == "production" ]
 then
   git push production deploying-wpengine:master --force
-  git checkout master
 fi
 git branch -D deploying-wpengine
 echo "Successfully deployed."
 
+
 ###
 # Remove deploy directory and move back to htdocs
 ###
+git checkout master
 echo "Cleaning up..."
 cd "../htdocs"
 rm -Rf "../deploy"
