@@ -14,7 +14,7 @@
  */
 
 if ( ! class_exists( 'Timber' ) ) {
-	echo '<div class="error"><p>Timber not activated. Make sure you activate the plugin. Speak to a member of the web team for help.</p></div>';
+	echo '<div class="error"><p>Timber not activated. You have the Timber Plugin installed and activated. Speak to a member of the web team for help.</p></div>';
 	return;
 }
 $context = Timber::get_context();
