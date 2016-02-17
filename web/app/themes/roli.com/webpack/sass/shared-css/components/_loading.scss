@@ -1,0 +1,60 @@
+.loader {
+    opacity: 0;
+    @media (min-width: $tiles-bp-one) {
+        .loading &, .force-loading & {
+            opacity: 1;
+        }
+    }
+    font-size: 20px;
+    width: 3em;
+    height: 1em;
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    z-index: 200;
+    transition: opacity 0.4s linear;
+    pointer-events: none;
+    .b {
+        background: $roli-grey;
+        width: 1em;
+        height: 1em;
+        float: left;
+        padding: 0.15em;
+        border-radius: 0.2em;
+        background-clip: content-box;
+        box-sizing: border-box;
+        animation: drop 1.5s infinite linear;
+        opacity: 0;
+        transform: translateY(-0.7em) scale(1);
+        @for $i from 1 through 3 {
+            &:nth-child(#{$i}) {
+                animation-delay: $i * 0.2s;
+            }
+        }
+    }
+}
+@keyframes drop {
+    0% {
+        opacity: 0;
+        transform: translateY(-0.5em) scale(1);
+    }
+    15% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    45% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    60% {
+        opacity: 0;
+        transform: translateY(0.5em) scale(1.1);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.loading .js-infscr-trigger-wrap {
+    display: none;
+}

@@ -1,0 +1,201 @@
+html {
+    background-color: $body-bg;
+    min-height: 100%;
+}
+
+// scss-lint:disable VendorPrefix
+body {
+    background-color: transparent;
+    min-height: 100%;
+    overflow-y: scroll;
+    -webkit-animation-delay: 0.1s;
+    -webkit-animation-name: fontfix;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+}
+@-webkit-keyframes fontfix {
+    from {opacity: 1;}
+    to {opacity: 1;}
+}
+
+
+.wrapper {
+    @include trim;
+    @include clearfix;
+    max-width: $wrapper-width;
+    margin: auto;
+    padding: $wrapper-padding;
+    &--no-pad {
+        padding: 5px;
+    }
+
+    &--grow {
+        overflow: hidden;
+        padding: $margin-slim-half;
+        max-width: 100%;
+        @media (min-width: $wrapper-width) {
+            width: calc(#{$wrapper-width / 2} + 50%);
+            &:not(#{&}--fix-font) {
+                font-size: calc(7.5px + #{$font-size-base/$wrapper-width}*50vw);
+                input, textarea {
+                    font-size: calc(7.5px + #{$font-size-base/$wrapper-width}*50vw);
+                }
+            }
+        }
+        @media (min-width: 2000px) {
+            width: $wrapper-width/2+2000px/2;
+        }
+    }
+
+    &--top {
+        margin-top: $margin-mid;
+    }
+    &--bottom {
+        margin-bottom: $margin-mid;
+    }
+
+    &--col-6 {
+        max-width: $wrapper-width*6/12;
+    }
+    &--col-8 {
+        max-width: $wrapper-width*8/12;
+    }
+    &--col-10 {
+        max-width: $wrapper-width*10/12;
+    }
+
+}
+
+.wrapper--fullwindow {
+    @media (min-width: $screen-sm) {
+        min-height: 100vh;
+    }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: $margin-wide 0;
+    .section--tiles {
+        width: 100%;
+        flex-shrink: 0;
+    }
+    .section--cover {
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .section--nomargin {
+        margin: 0;
+    }
+    .wrapper {
+        margin-bottom: 0;
+    }
+    &.wrapper--no-padding-bottom {
+        padding-bottom: 0;
+    }
+    &.wrapper--no-padding-top {
+        padding-top: 0;
+    }
+}
+
+
+.grey {
+    @include clearfix;
+    background: $roli-grey-light;
+}
+.true-white {
+    $c: #fff;
+    background: $c;
+}
+
+
+.cover-img {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+    img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        visibility: hidden;
+        top: 0;
+        left: 0;
+    }
+}
+
+.alert {
+    border-radius: $border-radius;
+}
+
+.video-wrap {
+    @include fitvids(0.5625);
+    display: block;
+}
+
+.row {
+    > div {
+        @include trim;
+    }
+    &--spaced {
+        margin-top: $margin-wide;
+        margin-bottom: $margin-wide;
+    }
+}
+
+.section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+
+.fill-screen {
+    @include viewheight(100);
+    @include viewheight(50, min-width);
+    @include viewheight(50, min-height);
+    width: 100%;
+    background-size: cover;
+    background-position: center;//50% 20%;
+    background-repeat: no-repeat;
+    position: relative;
+
+    .wrapper {
+        @include viewheight(11.5, padding-top);
+        @include thinText();
+        padding-top: calc(60px + 3vh);
+        text-align: center;
+        color: $roli-white;
+        &.light {
+            $c: #000;
+            color: $c;
+        }
+        p {
+            padding: 0 10vw;
+            margin: 10px auto;
+
+            &.left {
+                margin-left: 0;
+                text-align: left;
+            }
+            &.right {
+                width: 30%;
+                margin-right: 0;
+                text-align: right;
+            }
+        }
+    }
+
+}
+
+@media (max-width: $screen-xs-max) {
+    .fill-screen .wrapper {
+        padding: $margin-mid;
+        padding-top: 40px;
+    }
+}
+
+
+@media (max-width: $screen-sm-max) {
+    .sm-with-bg {
+        background-color: rgba(#ffffff, 0.6);
+    }
+}

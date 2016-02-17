@@ -1,0 +1,96 @@
+
+p {
+    letter-spacing: $letter-spacing;
+}
+
+.center-text {
+    text-align: center;
+}
+
+
+h1, h2, h3, h4 {
+    font-weight: $weight-45;
+    letter-spacing: $letter-spacing;
+}
+h1.center, h2.center, h3.center {
+    text-align: center;
+}
+
+h1.top, .wrapper > h1.top:first-child {
+    margin: 25px 0
+}
+
+hr {
+    border-top: 2px solid $roli-grey-light;
+    margin: $margin-mid 0;
+}
+
+ul.link-list {
+    padding-left: 0;
+    > li {
+        text-decoration: none;
+        list-style: none;
+        margin: 20px 0px;;
+        a {
+            color: $roli-blue;
+        }
+    }
+}
+
+// a mixin so it can be reused in a mq in equator page
+@mixin ulpretty {
+    list-style: none;
+    padding-left: 1em;
+    li {
+        position: relative;
+        &:before {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 0.3em;
+            height: 0.3em;
+            border-radius: 50% 50%;
+            left: -1em;
+            background: $roli-grey;
+            top: 0.4em;
+        }
+    }
+}
+ul.pretty {
+    @include ulpretty;
+}
+
+p a, a.inline-link {
+    text-decoration: underline;
+    color: inherit;
+}
+
+a:focus, button:focus, button:active {
+    outline: none;
+}
+
+.svg-icon {
+    vertical-align: bottom;
+}
+
+
+.jumbotron {
+    h1 {
+        font-size: $font-size-jumbo;
+    }
+    p {
+        max-width: $wrapper-width/2;
+        font-size: $font-size-base*1.1;
+        line-height: 1.5;
+        margin: 0 auto 2em;
+    }
+}
+
+.small-print {
+    & > *{
+        font-size: 12px;
+    }
+    h2,h3,h4,h5{
+        font-size: 14px;
+    }
+}

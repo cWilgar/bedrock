@@ -1,0 +1,119 @@
+//
+// Utility classes
+// --------------------------------------------------
+
+
+// Floats
+// -------------------------
+
+.pull-right {
+    float: right !important;
+}
+.pull-left {
+    float: left !important;
+}
+
+
+// Toggling content
+// -------------------------
+
+.show {
+    display: block !important;
+}
+.invisible {
+    visibility: hidden;
+}
+
+
+// Hide from screenreaders and browsers
+//
+// Credit: HTML5 Boilerplate
+
+.hidden {
+    display: none !important;
+}
+
+
+
+// Charlotte's utilities
+// -------------------------
+
+
+// for validating user-determined options
+@function strip-unit($num) {
+    @return $num / ($num * 0 + 1);
+}
+
+// I need this sometime for reasons
+@function replace($str, $a, $b) {
+    @while str-index($str, $a) {
+        $index: str-index($str, $a);
+        $str: str-slice($str, 0, -1 + $index) + $b + str-slice($str, $index + 1);
+    }
+    @return $str;
+}
+
+
+// for novelty display pseudo elements, not inline things like quotes
+%pseudos {
+    display: block;
+    position: absolute;
+    content: "";
+}
+
+@mixin pseudo($el, $el-w: null, $el-h: null) {
+    &:#{$el} {
+        @extend %pseudos;
+        width: $el-w;
+        height: $el-h;
+        @content;
+    }
+}
+
+// as derived from the intrinsic ratio principal
+%fitvids {
+    position: relative;
+    width: 100%;
+    height: 0;
+    > * {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+}
+
+// null option because sometimes the padding is completed with js
+@mixin fitvids($ratio: null) {
+    @extend %fitvids;
+    padding-bottom: $ratio * 100%;
+}
+
+// I need this far more than you'd expect
+%trim {
+    > *:first-child {
+        margin-top: 0;
+    }
+    > *:last-child {
+        margin-bottom: 0;
+    }
+}
+@mixin trim {
+    @extend %trim;
+}
+
+// horizontal trim! genius!
+%trim-h {
+    > *:first-child {
+        margin-left: 0;
+    }
+    > *:last-child {
+        margin-right: 0;
+    }
+}
+@mixin trim-h {
+    @extend %trim-h;
+}
+
+

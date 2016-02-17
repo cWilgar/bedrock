@@ -1,0 +1,89 @@
+
+%btn {
+    @include btn;
+}
+
+// Common styles
+$btn-colors: (
+    default: $brand-default,
+    primary: $brand-primary,
+    secondary: $brand-secondary,
+    tertiary: $brand-tertiary,
+    success: $brand-success,
+    info: $brand-info,
+    warning: $brand-warning,
+    danger: $brand-danger,
+    dark: $roli-grey-dark,
+    light: $roli-white,
+    grey: $roli-grey-light
+);
+
+$props: unquote('.btn, .btn-em, .btn-sub, .btn-gho');
+@each $name, $color in $btn-colors {
+    $props: append($props, unquote('.btn-#{$name}'), comma);
+}
+
+#{$props} {
+    @extend %btn;
+}
+
+.btn {
+    @include btn-style($brand-default);
+}
+.btn-em {
+    @include btn-style-em(rgba($brand-default,0.3));
+}
+.btn-sub {
+    @include btn-style-sub(rgba($brand-default,0.3));
+}
+// .btn-gho {
+//  @include btn-style-gho($brand-default);
+// }
+@each $name, $color in $btn-colors {
+    .btn-#{$name} {
+        @include btn-style($color);
+        @include thinText($thinTextColor:$color);
+    }
+    .btn-#{$name}.btn-em {
+        @include btn-style-em($color);
+    }
+    .btn-#{$name}.btn-sub {
+        @include btn-style-sub($color);
+    }
+    // .btn-#{$name}.btn-gho {
+    //  @include btn-style-gho($color);
+    // }
+}
+.btn-chunky {
+    min-width: 10em;
+}
+.btn-block {
+    width: 100%;
+}
+.btn-unblock {
+    display: inline-block;
+    width: auto;
+}
+.btn-unstyle {
+    padding-left: 0!important;
+    padding-right: 0!important;
+    border-color: transparent!important;
+    background-color: transparent!important;
+    border-width: 2px 0!important;
+}
+.btn-persist-light {
+    &, &:hover, &:focus, &:active {
+        color: $white;
+    }
+}
+.btn-persist-dark {
+    &, &:hover, &:focus, &:active {
+        color: $roli-grey-dark;
+    }
+}
+.btn-large {
+    font-size: 1.2em;
+}
+.btn-small {
+    font-size: 0.9em;
+}

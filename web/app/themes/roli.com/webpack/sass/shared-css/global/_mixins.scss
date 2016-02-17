@@ -1,0 +1,294 @@
+
+// Link Style
+// -------------------------
+
+@mixin emhover($color: $roli-grey-blue, $background: transparent) {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    text-decoration: none;
+    @include pseudo(before, 100%, 100%) {
+        
+        box-sizing: content-box;
+        top: -0.13em;
+        left: -0.5em;
+        padding: 0 0.4em;
+        z-index: -1;
+        border: $border-width solid $color;
+        border-radius: $border-radius;
+        background: $background;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+    }
+    &:hover, &:focus, &:active {
+        &:before {
+            opacity: 1;
+        }
+    }
+}
+
+
+// Buttons
+// -------------------------
+
+@mixin btn {
+    display: inline-block;
+    padding: 0.5em 1.2em;
+    // myfonts having bad valign:
+    //padding: 0.4em 1.2em 0.6em;
+    margin-bottom: 0.4em;
+    height: auto;
+    text-align: center;
+    font-size: 1.08em;
+    font-weight: $weight-55;
+    outline: none;
+    border: 2px solid transparent;
+    border-radius: $border-radius;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.1s ease;
+    &:hover, &:focus, &:active, &.active {
+        text-decoration: none;
+    }
+}
+
+@function lightnesscheck($c, $a, $b) {
+    @if (lightness($c) < 80%) {
+        @return $a;
+    } @else {
+        @return $b;
+    }
+}
+
+@mixin btn-style($btn-color: $brand-default, $text-color: $white, $btn-border: $btn-color) {
+    background-color: $btn-color;
+    border-color: $btn-border;
+    &:not(.btn-sub) {
+        color: lightnesscheck($btn-color, $text-color, $black);
+    }
+    &:hover, &:focus, &:active, &.active {
+        background-color: transparent;
+        border-color: $btn-border;
+        color: $btn-color;
+    }
+}
+@mixin btn-style-em($btn-color: rgba($brand-default, 0.3), $text-color: $white, $btn-border: $btn-color) {
+    background-color: transparent;
+    border-color: $btn-border;
+    color: rgba($btn-color, 1);
+    &:hover, &:focus, &:active, &.active {
+        background-color: rgba($btn-color, 1);
+        border-color: rgba($btn-border, 1);
+        color: lightnesscheck($btn-color, $text-color, $black);
+    }
+}
+@mixin btn-style-sub($btn-color: rgba($brand-default, 0.3), $text-color: $black, $btn-border: $btn-color) {
+    border-color: transparent;
+    background-color: transparent;
+    color: $text-color;
+    &:hover, &:focus, &:active, &.active {
+        border-color: $btn-border;
+    }
+}
+@mixin btn-style-gho($btn-color: rgba($brand-default, 0.3), $text-color: $white, $btn-border: $btn-color) {
+    border-color: transparent;
+    background-color: transparent;
+    color: $btn-color;
+    //color: lightnesscheck($btn-color, $btn-color, $black);
+    &:hover, &:focus, &:active, &.active {
+        background-color: $btn-color;
+        color: lightnesscheck($btn-color, $text-color, $black);
+    }
+}
+
+// Tags on posts
+//----------------------------
+@mixin tag($bg) {
+    display: inline-block;
+    padding: 0.3em 1em;
+    background-color: $bg;
+    position: relative;
+    margin: 0 0 0 0.9em;
+    line-height: 1.17;
+    &:before {
+        content: '';
+        position: absolute;
+        height: 1.25em;
+        width: 1.25em;
+        top: 0;
+        left: 0;
+        transform-origin: top left;
+        transform: rotate(45deg);
+        background: radial-gradient(circle 1em at 40% 60%, transparent 0.19em, $bg 0.2em, $bg);
+        z-index: -1;
+    }
+}
+
+// IOS7 Viewheight
+//----------------------------
+@mixin viewheight($vh : 100, $property: height) {
+    // fallback
+    #{$property}: 500px * ($vh/100);
+    #{$property}: 100vh * ($vh/100);
+    //iPad with portrait orientation.
+    @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
+        #{$property}: 1024px * ($vh/100);
+    }
+    //iPad with landscape orientation.
+    @media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
+        #{$property}: 768px * ($vh/100);
+    }
+    //iPhone 5
+    @media screen and (device-aspect-ratio: 40/71) {
+        #{$property}: 500px * ($vh/100);
+    }
+}
+
+// Icons
+//-------------------------------
+
+// scss-lint:disable NameFormat
+// because if I change it here I'll have to change it in other places and then
+// those files will need further linting ugh
+@mixin playIcon() {
+    left: 50%;
+    top: 50%;
+    margin: -1em;
+    z-index: 10;
+    border-style: solid;
+    border-width: 1em 0 1em 1.6em;
+    border-color: transparent $white;
+}
+
+
+@mixin more-arrow($direction, $size, $color) {
+    width: 0;
+    height: 0;
+    @if $direction == 'right' {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-left: $size solid $color;
+        border-right: 0;
+    } @else if $direction == 'down'{
+        border-top: $size solid $color;
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-bottom: 0;
+    } @else if $direction == 'left' {
+        border-top: $size solid transparent;
+        border-bottom: $size solid transparent;
+        border-right: $size solid $color;
+    } @else if $direction == 'up' {
+        border-bottom: $size solid $color;
+        border-left: $size solid transparent;
+        border-right: $size solid transparent;
+        border-top: 0;
+    } @else {
+        @error 'Direction #{$direction} not implemented';
+    }
+
+}
+
+@mixin backgroundscreen($color) {
+    @include pseudo(before, 100%, 100%) {
+        top: 0;
+        left: 0;
+        z-index: 0;
+        background-color: $color;
+        @content;
+    }
+}
+
+// font smoothing for white text
+//-----------------------------------
+@mixin thinText($antialiased: antialiased, $thinTextColor: $roli-white) {
+    -webkit-font-smoothing: $antialiased;
+    color: $thinTextColor;
+}
+
+
+
+// Responsive images
+//-------------------------------------
+// requires _480
+//          _650
+//          _900
+//          _1200
+//          _2400 (also used for 1200 retina)
+//          _480x2  (960 wide)
+//          _650x2  (1300 wide)
+//          _900x2  (1800 wide)
+//          _2400x2 (4800 wide, also used for >1200px non-retina)
+//
+// if an image will only ever be a percentage of the page width
+// the number doesn't have to correspond to the image size
+// e.g. for a 50vw image the _1200 will only have to be 600 wide
+//
+// $max-width is if the image is inside a width-limited container
+//            it should be a pixel value
+//
+@mixin responsivebg($path, $name, $ext: '.jpg', $max-width: null) {
+    background-size: cover;
+    background-image: url(#{$path}/#{$name}_480#{$ext});
+    @media (min-width: $screen-sm-min) {
+        background-image: url(#{$path}/#{$name}_650#{$ext});
+    }
+    @if ($max-width == null or $screen-sm-min < $max-width) {
+        @media (min-width: $screen-md-min) {
+            background-image: url(#{$path}/#{$name}_900#{$ext});
+        }
+    }
+    @if ($max-width == null or $screen-lg-min < $max-width) {
+        @media (min-width: $screen-lg-min) {
+            background-image: url(#{$path}/#{$name}_1200#{$ext});
+        }
+    }
+    @if ($max-width == null or $screen-xlg-min < $max-width) {
+        @media (min-width: $screen-xlg-min) {
+            background-image: url(#{$path}/#{$name}_2400#{$ext});
+        }
+    }
+    @if ($max-width == null or 2400px < $max-width) {
+        @media (min-width: 2400px) {
+            background-image: url(#{$path}/#{$name}_2400x2#{$ext});
+        }
+    }
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+        @if ($max-width == null or $screen-sm-min/2 < $max-width) {
+            @media (min-width: $screen-sm-min/2) {
+                background-image: url(#{$path}/#{$name}_480x2#{$ext});
+            }
+        }
+        @if ($max-width == null or $screen-sm-min < $max-width) {
+            @media (min-width: $screen-sm-min) {
+                background-image: url(#{$path}/#{$name}_650x2#{$ext});
+            }
+        }
+        @if ($max-width == null or $screen-md-min < $max-width) {
+            @media (min-width: $screen-md-min) {
+                background-image: url(#{$path}/#{$name}_900x2#{$ext});
+            }
+        }
+        @if ($max-width == null or $screen-lg-min < $max-width) {
+            @media (min-width: $screen-lg-min) {
+                background-image: url(#{$path}/#{$name}_2400#{$ext});
+            }
+        }
+        @if ($max-width == null or $screen-xlg-min < $max-width) {
+            @media (min-width: $screen-xlg-min) {
+                background-image: url(#{$path}/#{$name}_2400x2#{$ext});
+            }
+        }
+    }
+}
+
+// Retina images
+//-------------------------------------
+// requires $name
+//          $namex2
+//
+@mixin retinabg($path, $name, $ext: '.jpg', $max-width: null) {
+    background-size: cover;
+    background-image: url(#{$path}/#{$name}#{$ext});
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+        background-image: url(#{$path}/#{$name}x2#{$ext});
+    }
+}

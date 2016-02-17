@@ -1,0 +1,83 @@
+
+
+//REFACTOR NOTE : these need to be mushed together again
+.video-wrap {
+    display: block;
+    @include fitvids(0.5625);
+}
+
+.video-wrapper {
+    display: block;
+    position: relative;
+
+    background-size: cover;
+    background-position: center;
+
+    &--round-edges{
+        @media (min-width: $screen-md) {
+            border-radius: $border-radius;  
+            overflow: hidden;
+        }
+    }
+
+    &--play-icon {
+        @include pseudo(before, 0, 0) {
+            left: 50%;
+            top: 50%;
+            margin: -1em;
+            z-index: 10;
+            border-style: solid;
+            border-width: 1em 0 1em 1.6em;
+            border-color: transparent $white;
+        }
+        &.js-video-playing {
+            @include pseudo(before, 0, 0) {
+                display:none;
+            }
+        }
+        video::-webkit-media-controls {
+            display:none;
+        }
+    }
+}
+
+.sound-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: $border-radius;
+
+    background-color: $roli-blue;
+    border: 2px solid $roli-blue;
+    fill: $roli-white;
+
+    .cross{visibility:visible;}
+
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+
+    &.js-video-unmuted {
+        fill: $roli-white;
+        .cross{visibility:hidden;}
+    }
+    &:hover {
+        border: 2px solid $roli-white;
+        background-color: transparent;
+    }
+}
+
+//default vid wrapper sound
+.video-wrapper__sound {
+    @extend .sound-icon;
+
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    left: auto;
+    top: auto;
+
+    &--darken:hover{
+        border: 2px solid $roli-blue;
+        fill: $roli-blue;
+        background-color: transparent;
+    }
+
+}

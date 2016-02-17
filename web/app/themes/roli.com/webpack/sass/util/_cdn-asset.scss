@@ -1,0 +1,3 @@
+@function cdn-asset($identifier) {
+    @return 'https://d30pueezughrda.cloudfront.net/' + $identifier;
+}

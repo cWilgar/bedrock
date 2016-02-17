@@ -1,0 +1,30 @@
+.notifaction-wrapper {
+    z-index: 200;
+
+    .alert-block {
+        background-color: $roli-white;
+        margin: 100px auto 0;
+        width: 80%;
+        min-width: 230px;
+        max-width: 800px;
+        border-width: $border-width;
+        position: fixed;
+        z-index: 200;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 0;
+
+        max-height: calc(100% - 150px);
+        overflow: auto;
+
+        h4, p {
+            max-width: 95%;
+        }
+        p {
+            margin: 10px 0;
+        }
+        .ok-button {
+            margin: 0px;
+        }
+    }
+}

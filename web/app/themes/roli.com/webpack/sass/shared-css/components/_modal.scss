@@ -1,0 +1,119 @@
+
+.modal-form{
+    
+    .modal-dialog{
+        margin: 120px auto;
+    }
+
+    .modal-header{
+        border: none;
+    }
+    p, 
+    .button-holder{
+        text-align: center;
+    }
+    .inline-error{
+        color: $brand-danger;
+        text-align: left;
+        font-size: 1em;
+    }
+}
+
+.modal-video, .modal-image {
+
+    overflow-y: hidden;
+
+    .modal-dialog {
+        margin: 0;
+        margin-top: 0;
+        top: 50%;
+        position: absolute;
+        width: 100%;
+    }
+    .modal-content {
+        transform: translateY(-50%);
+        margin: auto;
+        border: none;
+        border-radius: $border-radius;
+        overflow: hidden;
+        background-color: transparent;
+    }
+    .modal-header {
+        z-index: 10;
+        width: 100%;
+        border: none;
+        position: absolute;
+        .close {
+            margin-top: -5px;
+        }
+    }
+    .modal-title {
+        font-weight: bold;
+    }
+
+    .modal-body {
+        padding: 0;
+        height: auto;
+    }
+
+
+    button.close {
+        font-size: 30px;
+        font-weight: bold;
+        color: black;
+        opacity: 100;
+    }
+}
+
+.modal-video{
+
+    .modal-content {
+        width: 80%;
+    }
+
+    .modal-body {
+        background-color: black;
+    }
+    video {
+        display: block;
+        width: 100%;
+        border-radius: $border-radius;
+    }
+}
+
+.modal-image{
+    .modal-dialog{
+        text-align: center;
+
+    }
+    .modal-content{
+        display: inline-block;
+    }
+    .modal-body{
+        background-color: #ffffff;
+    }
+    img{
+        max-width: 90%;
+        max-height: 90vh;
+        @include viewheight(90, max-height);
+        display: block;
+        margin: auto;
+        padding: 30px;
+    }
+}
+
+@media (max-width: $screen-sm-max) {
+    .modal-video {
+        video, .modal-content {
+            border-radius: 0;
+        }
+        .modal-content {
+            width: 100%;
+        }
+    }
+}
+
+// for some reason in bootstrap it's auto which causes a scrollbar when activated
+.modal-open .modal {
+    overflow-y: hidden;
+}

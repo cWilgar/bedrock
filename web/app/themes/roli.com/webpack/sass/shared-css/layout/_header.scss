@@ -1,0 +1,425 @@
+
+
+// scss-lint:disable MergeableSelector
+// more readable&understandable to have .menu split
+
+.svg-logo {
+    fill: $roli-white;
+    height: 30px;
+    width: 20px;
+}
+
+.menu {
+    width: 100%;
+    z-index: 100;
+    top: 0;
+    transition: top 0.2s linear;
+    &.fixed {
+        position: fixed;
+    }
+    .navbar-absolute &__spacer {
+        display: none;
+    }
+    &__toggle {
+        display: none;
+    }
+    &__bar {
+        width: 100%;
+        transition: background-color ease 0.5s;
+        &--main {
+            background-color: $roli-black-trans;
+        }
+        &--sub {
+            background-color: $roli-white-trans;
+            &:hover {
+                background: $roli-white;
+            }
+            .menu__link {
+                color: $roli-grey-dark;
+            }
+        }
+        &__inner {
+            @include clearfix;
+            overflow: hidden;
+            max-width: $wrapper-width;
+            padding: 0 10px;
+            margin: 0 auto;
+        }
+    }
+    &__section {
+        padding: 0;
+        margin: 0;
+        font-size: 0;
+        // increased specificity to override section-sepecific margins
+        .menu & {
+            @include trim-h;
+        }
+    }
+    $link: '.menu__link';
+    &__item {
+        display: inline-block;
+        font-size: $font-size-base;
+        margin: 0 2.5px;
+        &--em {
+            .menu__bar--main & #{$link} {
+                color: $white;
+            }
+            .menu__bar--sub & #{$link} {
+                color: $black;
+            }
+        }
+        &--active {
+            .menu__bar--main & #{$link} {
+                color: $white;
+                font-weight: $weight-55;
+            }
+            .menu__bar--sub & #{$link} {
+                @include btn-style-em;
+            }
+        }
+        .menu__bar &--primary #{$link} {
+            @include btn-style-sub(rgba($brand-primary, 0.5), $brand-primary);
+        }
+        .menu__bar &--primary-action #{$link} {
+            @include btn-style($brand-primary);
+        }
+        .menu__bar &--secondary-action #{$link} {
+            @include btn-style($brand-secondary);
+        }
+        .menu__bar--main &--primary-action #{$link}:hover, .menu__bar--main &--secondary-action #{$link}:hover {
+            color: $white;
+        }
+    }
+    &__link {
+        @extend %btn;
+        display: inline-block;
+        margin: 5px 0;
+        text-decoration: none;
+        font-weight: $weight-45;
+        .menu__bar--main & {
+            @include btn-style-sub(rgba($white, 0.2), rgba($white, 0.7));
+        }
+        .menu__bar--sub & {
+            @include btn-style-sub;
+        }
+    }
+}
+
+// non-general styling
+.menu__section {
+    &--branding {
+        padding: 10px 30px 10px 20px;
+    }
+    &--products {
+        .menu__item {
+            margin: 0 5px;
+        }
+    }
+    &--other {
+        .menu__item {
+            margin: 0 3px;
+        }
+    }
+    &--headline {
+        padding-left: 20px;
+        padding-right: 10px;
+        .menu__link {
+            @extend .btn-unstyle;
+            $bigger: 4px;
+            font-size: $font-size-base + $bigger;
+            line-height: 0.8;
+        }
+    }
+    &--actions {
+        padding-left: 10px;
+    }
+}
+
+// toggle icon for primary phase 1
+.menu__toggle {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    margin: 5px;
+    padding: 10px;
+    border-radius: $border-radius;
+    transition: transform 0.3s linear;
+    transition-delay: 0.15s;
+    transform: rotate(0);
+    &:hover, &:focus {
+        background: $black;
+    }
+    .icon-bar {
+        position: relative;
+        top: 0;
+        width: 20px;
+        height: 2px;
+        background: $white;
+        transition: top 0.15s linear, width 0.15s linear, transform 0.15s linear;
+        transform-origin: left;
+        transform: rotate(0deg);
+        + .icon-bar {
+            margin-top: 7px;
+        }
+    }
+    .is-open & {
+        transform: rotate(90deg);
+        .icon-bar {
+            transition-delay: 0s, 0.15s, 0.15s;
+            &:nth-child(1) {
+                transform: rotate(-45deg);
+                top: 9px;
+                width: 15px;
+            }
+            &:nth-child(3) {
+                transform: rotate(45deg);
+                top: -9px;
+                width: 15px;
+            }
+        }
+    }
+}
+
+// cart icon for store
+.menu__cart {
+    position: relative;
+    &:before {
+        content: attr(data-items);
+        position: absolute;
+        display: block;
+        color: $brand-primary;
+        font-weight: bold;
+        z-index: 1;
+        top: 0;
+        left: 50%;
+        margin-left: 4px;
+    }
+    .svg-cart {
+        position: relative;
+        top: 0;
+        left: -2px;
+        width: 1em;
+        height: 1em;
+        fill: $black;
+    }
+    &[data-items="0"] {
+        .svg-cart {
+            top: 0;
+            left: 0;
+        }
+    }
+}
+
+
+// Responsive modes for main nav
+//==============================
+
+// phase 1
+// dropdown menu
+.main-phase-1 {
+    // so navbar is always visible on mobile
+    &.fixed.closed {
+        // scss-lint:disable ImportantRule
+        top: 0 !important;
+    }
+    &.is-open {
+        .menu__bar--main {
+            background-color: rgba($roli-black-trans, 0.9);
+        }
+        .menu__section {
+            &--products, &--other {
+                // fake-ish height minus the height of the top bar
+                height: calc(100vh - 50px);
+            }
+        }
+    }
+    .menu__section {
+        &--products, &--other {
+            height: 0;
+            transition: height 0.4s ease;
+            float: left;
+            width: 50%;
+            padding: 0 10px;
+            .menu__item {
+                display: block;
+                margin: 0 -10px;
+            }
+            .menu__link {
+                margin: 0;
+            }
+        }
+        &--other {
+            text-align: right;
+        }
+    }
+    .menu__toggle {
+        display: block;
+    }
+}
+
+// phase 2
+// flexbox for evenly spaced items
+// branding remains static
+.main-phase-2 {
+    .menu__bar--main {
+        .menu__bar__inner {
+            display: flex;
+        }
+        .menu__section {
+            &--branding, &--products, &--other {
+                // for browsers that without flexbox support
+                float: left;
+            }
+            &--products, &--other {
+                flex-grow: 1;
+                display: flex;
+                // scss-lint:disable SelectorDepth
+                .menu__item {
+                    flex-grow: 1;
+                    text-align: center;
+                    margin: 0;
+                }
+            }
+            &--other {
+                // needs to be the width of other / width of products
+                // could be set javascriptically
+                // doesn't matter if not quite right
+                flex-grow: 0.7;
+            }
+        }
+    }
+}
+
+// phase 3
+// branding and products on left
+// other on right
+.main-phase-3 {
+    .menu__section {
+        &--branding, &--products {
+            float: left;
+        }
+        &--other {
+            float: right;
+        }
+    }
+}
+
+
+// Responsive modes for sub nav
+//=============================
+
+// phase 1 on smallest screens
+// menu bar is static
+// actions are hidden
+// details displayed as vertical list
+.sub-phase-1 {
+    
+    // flipping the fixed so only the main menu is fixed
+    &.fixed {
+        position: static;
+        .menu__bar--main {
+            position: fixed;
+            z-index: 100;
+            top: 0;
+        }
+        .menu__bar--sub {
+            position: static;
+        }
+    }
+    ~ .menu__spacer {
+        display: none;
+    }
+    
+    .menu__bar--sub {
+        padding-bottom: 1em;
+    }
+    .menu__section {
+        &--headline {
+            .menu__link {
+                margin-bottom: 0;
+            }
+        }
+        &--details {
+            padding-left: 20px;
+            .menu__item {
+                display: block;
+                margin: 0;
+                // scss-lint:disable SelectorDepth
+                &--active a {
+                    font-weight: $weight-65;
+                }
+            }
+            .menu__link {
+                @extend .btn-unstyle;
+                margin: 0;
+            }
+        }
+        &--actions {
+            display: none;
+        }
+    }
+}
+
+// phase 2
+// headline is hidden
+// details on left
+// actions on right
+.sub-phase-2 {
+    .menu__section {
+        &--headline {
+            display: none;
+        }
+        &--details {
+            float: left;
+        }
+        &--actions {
+            float: right;
+        }
+    }
+}
+
+// phase 3
+// headline on left
+// details and actions on right
+.sub-phase-3 {
+    .menu__section {
+        &--headline {
+            float: left;
+        }
+        &--details, &--actions {
+            float: right;
+        }
+    }
+}
+
+
+// styling for javascript width testing
+.menu.is-testing {
+    visibility: hidden;
+    .menu__bar__inner {
+        width: 1200px;
+    }
+    .menu__section {
+        display: inline-block;
+    }
+}
+
+
+// temprary offer bar
+.menu__bar__offer {
+    width: 100%;
+    background: rgba($black, 0.4);
+    padding: 0.5em 0;
+    text-align: center;
+    font-size: 0.9em;
+    word-spacing: 0.1em;
+    color: $white;
+    a {
+        color: $brand-primary;
+        text-decoration: none;
+    }
+    .main-phase-1 & {
+        display: none;
+    }
+}

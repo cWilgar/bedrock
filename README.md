@@ -6,6 +6,7 @@ This project is built from the [Bedrock](https://roots.io/bedrock/) biolerplate.
 
 * PHP >= 5.5
 * Composer - [Install](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
+* [node.js](https://nodejs.org/en/) and [webpack](http://webpack.github.io/docs/installation.html)
 
 ## Installation
 
@@ -33,6 +34,12 @@ This project is built from the [Bedrock](https://roots.io/bedrock/) biolerplate.
 `php -S localhost:3000`
 
 1. Go to `http://localhost:3000/wp` in your browser and you will go the the wordpress setup screen.
+
+## Development
+
+1. Install web pack pack if you don't already have it `npm install webpack -g`
+1. Run `npm install`
+1. Run `webpack --progress --colors --watch`
 
 ## Deployment
 

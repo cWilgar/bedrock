@@ -1,0 +1,147 @@
+
+.craygrid {
+
+    max-width: $wrapper-width+2*$margin-mid;
+    font-size: 0;
+
+    &:before {
+        display: none;
+    }
+    &:after {
+        width: 48%;
+    }
+
+    &__item {
+        width: 19%;
+        margin-right: 8%;
+        display: inline-block;
+        vertical-align: top;
+        margin-bottom: 3em;
+        font-size: 15px;
+        @media (min-width: 901px) {
+            // 4 across
+            &:nth-child(4n) {
+                margin-right: -4px;
+            }
+        }
+        @media (max-width: 900px) and (min-width: 651px) {
+            // 3 across
+            width: 28%;
+            margin-right: 8%;
+            &:nth-child(3n) {
+                margin-right: -4px;
+            }
+        }
+        @media (max-width: 650px) and (min-width: 401px) {
+            // 2 across
+            width: 45%;
+            margin-right: 10%;
+            &:nth-child(2n) {
+                margin-right: -4px;
+            }
+        }
+        @media (max-width: 400px) {
+            width: 100%;
+        }
+        img {
+            border-radius: $border-radius;
+            width: 100%;
+        }
+        h3 {
+            font-weight: $weight-65;
+            font-size: 1em;
+            margin: 1em 0 0;
+        }
+        h4 {
+            font-weight: $weight-65;
+            font-style: italic;
+            font-size: 1em;
+            margin: 0.3em 0 1em;
+        }
+    }
+
+
+    /* classes for the contents not being a perfect multiple of 12
+         and centering the last line
+     */
+
+    @media (min-width: 901px) {
+        // 4 columns
+        &--4-1 {
+            .craygrid__item {
+                &:nth-last-child(3) {
+                    margin-left: 13.5%;
+                }
+            }
+        }
+        &--4-1-start {
+            .craygrid__item {
+                &:first-child {
+                    margin-left: 13.5%;
+                }
+                &:nth-child(4n) {
+                    margin-right: 8%;
+                }
+                &:nth-child(4n-1) {
+                    margin-right: -4px;
+                }
+            }
+        }
+        &--4-2 {
+            .craygrid__item {
+                &:nth-last-child(2) {
+                    margin-left: 27%;
+                }
+            } 
+        }
+        &--4-3 {
+            .craygrid__item {
+                &:last-child {
+                    margin-left: 40.5%;
+                }
+            } 
+        }
+        &--4-3-full {
+            // for if you have like 9 items and would rather it pretend to be 3 columns so you don't have a single overhang
+            // hidden because NO LONGER RELEVANT
+            // .craygrid__item {
+            //     &:nth-child(3n+1) {
+            //         margin-left: 13.5%;
+            //     }
+            //     &:nth-child(4n) {
+            //         margin-right: 8%;
+            //     }
+            // }
+        }
+    }
+
+    @media (max-width: 900px) and (min-width: 651px) {
+        // 3 columns
+        &--3-1 {
+        .craygrid__item {
+                &:nth-last-child(2) {
+                    margin-left: 18%;
+                }
+            }
+        }
+        &--3-2 {
+        .craygrid__item {
+                &:last-child {
+                    margin-left: 36%;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 650px) and (min-width: 401px) {
+        // 2 columns
+        &--2-1 {
+            .craygrid__item {
+                &:last-child {
+                    margin-left: 27.5%;
+                }
+            }
+        }
+    }
+
+}

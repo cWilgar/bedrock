@@ -1,0 +1,241 @@
+.form-group {
+    margin: 0 0 $margin-mid;
+    @include trim;
+
+    // extending styles to reuse them in checkout.scss - in an attempt to neatly combine the different BEM classes
+    &--inline {
+        @extend %form-group-inline;
+    }
+    &--collapse {
+        margin-bottom: 0;
+    }
+    &--date {
+        @extend %form-group-date;
+    }
+    &--checkbox, &--radio {
+        @extend %form-group-checkbox-radio;
+    }
+    &--checkbox {
+        @extend %form-group-checkbox;
+    }
+    &--radio {
+        @extend %form-group-radio;
+    }
+}
+
+
+.form-group {
+    label, .form-control {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .inline-error {
+        @extend %form-inline-error;
+    }
+}
+
+.form-control {
+    margin: 0;
+    padding: 0.7em 1em;
+    height: auto;
+    border: $border-width solid $white;
+    background: $white;
+    color: $black;
+    box-shadow: none;
+    border-radius: $border-radius;
+    &:focus, &:active {
+        border-color: $roli-blue;
+        box-shadow: none;
+        outline: none;
+    }
+    &::placeholder {
+        color: $black;
+    }
+    &.btn {
+        margin-top: 0;
+    }
+    &--outline {
+        @extend %form-control-outline;
+    }
+    &.error {
+        @extend %form-control-error;
+    }
+}
+
+
+
+
+%form-control-outline {
+    border-color: $roli-grey-light;
+}
+
+%form-inline-error {
+    font-style: italic;
+    margin: 0.4em 0;
+    color: $brand-danger;
+}
+%form-control-error {
+    border-color: $brand-danger;
+}
+
+
+
+
+
+
+
+
+
+%form-group-inline {
+    @include clearfix;
+    label {
+        @extend .form-control;
+        background: transparent;
+        border-color: transparent!important;
+        font-weight: $weight-55;
+        @media (min-width: $screen-xs-min) {
+            display: inline-block;
+            max-width: 30%;
+            width: auto;
+            float: left;
+            margin-left: -1em;
+            margin-left: calc(-1em - 2px);
+            font-weight: $weight-45;
+            & ~ *, & ~ input {
+                    &,
+                    &[type="text"], 
+                    &[type="tel"], 
+                    &[type="email"], 
+                    &[type="password"]{ 
+                        display: inline-block;
+                        width: 70%;
+                        float: right;
+                }
+            }
+        }
+    }
+    label, .form-control {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+%form-group-date {
+    width: 100%;
+    display: flex!important;
+    > * {
+        display: inline-block;
+        margin-right: $margin-mid;
+        flex-grow: 1;
+        width: 32%;
+        :root & {
+            width: auto;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+    .form-input-select-day + div,
+    .day + div {
+        flex-grow: 2;
+    }
+    .form-input-select-month + div,
+    .month + div {
+        flex-grow: 4;
+    }
+    .form-input-select-year + div,
+    .year + div {
+        flex-grow: 3;
+    }
+}
+
+%form-group-checkbox-radio {
+    label {
+        @extend .form-control;
+        background: transparent;
+        border-color: transparent!important;
+        position: relative;
+        padding-left: 3em;
+        border: 0;
+        font-weight: $weight-45;
+        user-select: none;
+        cursor: pointer;
+        @include pseudo(before, 1em, 1em) {
+            border: $border-width solid $white;
+            background: $white;
+            border-radius: $border-radius;
+            left: 0;
+            top: 0.45em;
+            font-size: 1.5em;
+        }
+    }
+    input:focus ~ label:before {
+        border-color: $brand-secondary;
+    }
+    .inline-error {
+        // padding-top: 0.7em;
+        // margin-left: 3em;
+        // margin-bottom: -0.2em;
+    }
+    & %form-control-outline {
+        & ~ label:before {
+            border-color: darken($roli-grey-light,3);
+        }
+    }
+}
+
+%form-group-checkbox {
+    input {
+        &:checked ~ label {
+            @include pseudo(after, 0.5em, 1em) {
+                left: 0.5em;
+                top: 0.85em;
+                transform: rotate(45deg);
+                border-width: 0 4px 4px 0;
+                border-style: solid;
+                border-color: $brand-secondary;
+            }
+        }
+    }
+}
+
+%form-group-radio {
+    label:before {
+        border-radius: 50%;
+    }
+    input {
+        &:checked ~ label {
+            @include pseudo(after, 1em, 1em) {
+                border: $border-width*3 solid transparent;
+                border-radius: 50%;
+                left: 0;
+                top: 0.45em;
+                font-size: 1.5em;
+                background: $brand-secondary;
+                background-clip: content-box;
+            }
+        }
+    }
+}
+
+.form-input-select {
+    appearance: none;
+    cursor: pointer;
+    &__wrapper {
+        position: relative;
+        &:after {
+            content: "\25BC";
+            display: block;
+            position: absolute;
+            height: 100%;
+            top: 0;
+            right: 0;
+            padding-right: 1em;
+            font-size: 0.8em;
+            line-height: 1/0.8*3em;
+            text-align: right;
+            color: $roli-grey;
+            cursor: pointer;
+        }
+    }
+}
