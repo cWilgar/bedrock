@@ -37,13 +37,22 @@ This project is built from the [Bedrock](https://roots.io/bedrock/) biolerplate.
 
 ## Development
 
+### Setup
 1. Install web pack pack if you don't already have it `npm install webpack -g`
-1. Run `npm install`
-1. Run `webpack --progress --colors --watch`
+1. Go to the theme folder `cd web/app/themes/roli.com`
+1. Run `npm install` if you haven't already
+
+### Work
+1. Then run watch within the webpack folder
+1. `cd webpack`
+1. `webpack --progress --colors --watch`
+
+### Admin
+1. Go to `http://localhost:3000/wp/wp-admin` for the wordpress admin panel
 
 ## Deployment
 
-Our site is currently hosted on WP-Engine. We will need to deploy only the contents of the *web folder*. Whether to do this with a subtree or a script or something else is TBD. See the this [getting started article](https://wpengine.com/git/) for more info on deploying with git.
+Our site is currently hosted on WP-Engine. We will need to deploy only the contents of the *web folder*. Whether to do this with a subtree or a script or something else is TBD. See the this [getting started article](https://wpengine.com/git/) for more info on deploying to WPE with git.
 
 ## Automatic Updates
 
