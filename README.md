@@ -1,6 +1,6 @@
 # ROLI BLOG 2
 
-This project is built from the [Bedrock](https://roots.io/bedrock/) biolerplate. Which means we can control all our worpress dependencies with composer. Read [this lovely article](https://roots.io/using-composer-with-wordpress/) if you need to get familiar with managing wordpress this way.
+This project is built from the [Bedrock](https://roots.io/bedrock/) biolerplate. Which means we can control all our worpress dependencies with composer. Read [this lovely article](https://roots.io/using-composer-with-wordpress/) if you need to get familiar with managing wordpress this way. *It is important that all plugins + updates are installed via composer* rather than through wordpress.
 
 ## Requirements
 
@@ -43,9 +43,12 @@ This project is built from the [Bedrock](https://roots.io/bedrock/) biolerplate.
 1. Run `npm install` if you haven't already
 
 ### Work
-1. Then run watch within the webpack folder
+1. Run watch within the webpack folder
 1. `cd webpack`
 1. `webpack --progress --colors --watch`
+
+### Plugins
+1. Install new plugins with composer - packages for plugins can be found on [http://wpackagist.org/](http://wpackagist.org/).
 
 ### Admin
 1. Go to `http://localhost:3000/wp/wp-admin` for the wordpress admin panel
