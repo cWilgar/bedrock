@@ -16,6 +16,6 @@ module.exports = {
         ]
     },
     plugins: [
-        new ExtractTextPlugin("dist/styles.css")
+        new ExtractTextPlugin("styles.css")
     ]
 };
